@@ -9,9 +9,9 @@ from app.services.llm_service import (
 @pytest.mark.parametrize(
     "table_text",
     [
-        "Person | koennen | sollen\\nich | koennte",
-        "Person | koennen | koennen\\nich | koennte | sollte",
-        "Person | koennen | sollen\\nich | koennte |",
+        "Person | koennen | sollen\nich | koennte",
+        "Person | koennen | koennen\nich | koennte | sollte",
+        "Person | koennen | sollen\nich | koennte |",
     ],
 )
 def test_malformed_tables_are_rejected(table_text):
