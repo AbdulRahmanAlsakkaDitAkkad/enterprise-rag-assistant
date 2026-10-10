@@ -1,0 +1,16 @@
+﻿Enterprise RAG Assistant - Demo Report
+
+Project: Smart Warehouse Analytics
+Reporting period: Q2 2026
+
+The warehouse processed 12500 orders during Q2 2026, representing a 25 percent increase compared with Q1.
+
+Average order processing time decreased from 48 minutes to 36 minutes after introducing automated inventory tracking.
+
+The order accuracy rate reached 98.5 percent, compared with 96.2 percent in the previous quarter.
+
+The main operational challenge was a shortage of warehouse staff during peak demand periods.
+
+The management team recommends expanding automated inventory tracking, improving staff scheduling, and introducing weekly performance reviews.
+
+The target for Q3 2026 is to reduce average processing time to 30 minutes while maintaining order accuracy above 98 percent.

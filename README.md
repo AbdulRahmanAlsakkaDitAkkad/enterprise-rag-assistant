@@ -106,6 +106,25 @@ Alternative documentation:
 
 http://127.0.0.1:8000/redoc
 
+## Demo
+
+A fictional warehouse report is available at demo/demo_report.pdf.
+
+1. Start Ollama and FastAPI.
+2. Open http://127.0.0.1:8000/docs.
+3. Upload demo/demo_report.pdf using POST /documents/process.
+4. Copy the returned document_id.
+5. Ask questions using POST /chat.
+
+Example question: How did warehouse processing time and accuracy change in Q2 2026?
+
+Expected answer: Processing time decreased from 48 to 36 minutes, and accuracy improved from 96.2% to 98.5%, with a source citation.
+
+Unsupported question: What was the total warehouse revenue in Q2 2026?
+
+Expected behavior: The assistant reports insufficient evidence instead of inventing revenue data.
+
+
 ## Recommended Workflow
 
 ### 1. Process a PDF
