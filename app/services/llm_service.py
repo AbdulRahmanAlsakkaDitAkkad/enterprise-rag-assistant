@@ -2191,6 +2191,13 @@ def extract_verified_table_cells(
         ):
             continue
 
+        row_labels = [
+            cells[0].casefold()
+            for _, cells in rows[1:]
+        ]
+        if len(set(row_labels)) != len(row_labels):
+            continue
+
         window_id = window["window_id"]
         header_id = f"{window_id}_line_{header_number}"
 

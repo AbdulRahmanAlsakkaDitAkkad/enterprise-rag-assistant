@@ -194,3 +194,22 @@ def test_deterministic_table_rejects_context_from_another_source():
     assert result.answer == ""
     extraction_mock.assert_called_once()
     assert windows == []
+
+
+def test_duplicate_row_labels_are_rejected():
+    from app.services.llm_service import extract_verified_table_cells
+
+    window = {
+        "window_id": "duplicate_rows",
+        "source_number": 1,
+        "page_number": 10,
+        "text": (
+            "Person | koennen | sollen\n"
+            "ich | koennte | sollte\n"
+            "ich | koenntest | solltest"
+        ),
+    }
+
+    cells = extract_verified_table_cells([window])
+
+    assert cells == []
