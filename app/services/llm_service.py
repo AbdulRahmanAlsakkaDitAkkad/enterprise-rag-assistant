@@ -2170,6 +2170,13 @@ def extract_verified_table_cells(
         if len(rows) < 2:
             continue
 
+        if any(
+            current_number != previous_number + 1
+            for (previous_number, _), (current_number, _)
+            in zip(rows, rows[1:])
+        ):
+            continue
+
         header_number, headers = rows[0]
         width = len(headers)
 

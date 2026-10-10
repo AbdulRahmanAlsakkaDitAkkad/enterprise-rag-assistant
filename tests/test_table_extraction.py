@@ -267,3 +267,25 @@ def test_multiple_matching_tables_do_not_trigger_deterministic_answer():
     assert result.answer == ""
     extraction_mock.assert_called_once()
     assert windows == []
+
+
+def test_separate_tables_in_one_window_are_not_merged():
+    from app.services.llm_service import extract_verified_table_cells
+
+    window = {
+        "window_id": "two_tables",
+        "source_number": 1,
+        "page_number": 10,
+        "text": "\n".join([
+            "Person | koennen | sollen",
+            "ich | koennte | sollte",
+            "",
+            "Other table:",
+            "Person | koennen | sollen",
+            "du | koenntest | solltest",
+        ]),
+    }
+
+    cells = extract_verified_table_cells([window])
+
+    assert cells == []
