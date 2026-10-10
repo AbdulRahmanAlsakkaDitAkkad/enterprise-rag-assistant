@@ -2681,7 +2681,8 @@ def generate_answer_from_windows(
 
             context_windows = [
                 window for window in selected_windows
-                if window["page_number"] == source_window["page_number"]
+                if window["source_number"] == source_window["source_number"]
+                and window["page_number"] == source_window["page_number"]
                 and window["window_id"] != source_window["window_id"]
                 and "konjunktiv 2" in window["text"].casefold()
             ]
