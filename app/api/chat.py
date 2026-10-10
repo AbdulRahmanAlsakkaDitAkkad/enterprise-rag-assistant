@@ -348,10 +348,10 @@ def rag_chat(
         # the backend-controlled citations in the answer.
         import re
 
-        cited_source_numbers = {
-            int(number)
-            for number in re.findall(
-                r"\[Source\s+(\d+)\s*,\s*page\s+\d+\]",
+        cited_source_pages = {
+            (int(number), int(page))
+            for number, page in re.findall(
+                r"\[Source\s+(\d+)\s*,\s*page\s+(\d+)\]",
                 answer,
                 flags=re.IGNORECASE,
             )
@@ -381,7 +381,7 @@ def rag_chat(
                 retrieved_chunks,
                 start=1,
             )
-            if source_number in cited_source_numbers
+            if (source_number, result['page_number']) in cited_source_pages
         ]
 
         return {
@@ -772,10 +772,10 @@ def multi_rag_chat(
         # Preserve original retrieval source numbers.
         import re
 
-        cited_source_numbers = {
-            int(number)
-            for number in re.findall(
-                r"\[Source\s+(\d+)\s*,\s*page\s+\d+\]",
+        cited_source_pages = {
+            (int(number), int(page))
+            for number, page in re.findall(
+                r"\[Source\s+(\d+)\s*,\s*page\s+(\d+)\]",
                 answer,
                 flags=re.IGNORECASE,
             )
@@ -784,7 +784,7 @@ def multi_rag_chat(
         sources = [
             source
             for source in sources
-            if source["source_number"] in cited_source_numbers
+            if (source["source_number"], source["page_number"]) in cited_source_pages
         ]
 
         return {

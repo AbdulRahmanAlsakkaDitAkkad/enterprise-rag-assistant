@@ -13,3 +13,4 @@ data_backup_*/
 data_rebuild_*/
 *.bak*
 debug_*.png
+.pytest_cache/
