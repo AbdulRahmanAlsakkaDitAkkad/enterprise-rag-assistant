@@ -213,3 +213,57 @@ def test_duplicate_row_labels_are_rejected():
     cells = extract_verified_table_cells([window])
 
     assert cells == []
+
+
+def test_multiple_matching_tables_do_not_trigger_deterministic_answer():
+    from unittest.mock import patch
+    from app.services.llm_service import generate_answer_from_windows
+
+    windows = [
+        {
+            "window_id": "table_one",
+            "source_number": 1,
+            "page_number": 10,
+            "text": (
+                "Person | koennen | sollen\n"
+                "ich | koennte | sollte\n"
+                "du | koenntest | solltest"
+            ),
+        },
+        {
+            "window_id": "context_one",
+            "source_number": 1,
+            "page_number": 10,
+            "text": "Konjunktiv 2",
+        },
+        {
+            "window_id": "table_two",
+            "source_number": 2,
+            "page_number": 20,
+            "text": (
+                "Person | koennen | sollen\n"
+                "ich | koennte | sollte\n"
+                "wir | koennten | sollten"
+            ),
+        },
+        {
+            "window_id": "context_two",
+            "source_number": 2,
+            "page_number": 20,
+            "text": "Konjunktiv 2",
+        },
+    ]
+
+    with patch(
+        "app.services.llm_service.extract_supported_facts",
+        return_value=[],
+    ) as extraction_mock:
+        result = generate_answer_from_windows(
+            question="Konjunktiv II von koennen und sollen",
+            selected_windows=windows,
+            conversation_history="",
+        )
+
+    assert result.answer == ""
+    extraction_mock.assert_called_once()
+    assert windows == []
