@@ -16,6 +16,23 @@ The application processes PDF documents and answers questions using retrieved do
 - Document registration using SQLite
 - Interactive API documentation through FastAPI
 
+## Architecture
+
+```mermaid
+flowchart TD
+    A[PDF Upload] --> B[Text Extraction and OCR]
+    B --> C[Text Chunking]
+    C --> D[Sentence Transformer Embeddings]
+    D --> E[FAISS Vector Index]
+    B --> F[SQLite Document Registry]
+    G[User Question] --> H[Semantic Search]
+    E --> H
+    H --> I[Retrieved Document Evidence]
+    I --> J[Ollama Qwen 2.5]
+    G --> J
+    J --> K[Answer with Source Citations]
+```
+
 ## Technology Stack
 
 - Python 3.11
@@ -191,7 +208,7 @@ Run the automated test suite:
 python -m pytest -q
 ```
 
-The latest verified local test run passed 42 tests.
+The automated test suite currently contains 53 passing tests. The full suite has been verified locally and in GitHub Actions on Python 3.11.
 
 ## Configuration Notes
 
